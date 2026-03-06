@@ -30,21 +30,23 @@ using namespace std;
 class Solution {
 public:
     vector<vector<int>> generate(int numRows) {
-        vector<vector<int>> ans;
-        
-        for(int i = 1; i <= numRows; i++) {
-            long long val = 1;
-            vector<int> row;
-            
-            for(int j = 1; j <= i; j++) {
-                row.push_back(val);
-                val = val * (i - j) / j;
-            }
-            
-            ans.push_back(row);
-        }
-        
-        return ans;
+               vector<vector<int>> result;
+               vector<int>prev(numRows, 0);
+               vector<int>curr(numRows, 0);
+               for(int i=0; i<numRows; i++){
+                curr[0]=1;
+                curr[i]=1;
+                for(int j=1; j<i; j++){
+                        curr[j]=prev[j-1]+prev[j];
+                }
+                vector<int> row;
+                for(int j=0; j<=i; j++){
+                    row.push_back(curr[j]);
+                }
+                result.push_back(row);
+                prev=curr;
+                   }
+                   return result;
     }
 };
 /*
